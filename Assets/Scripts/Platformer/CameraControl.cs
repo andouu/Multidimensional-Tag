@@ -27,29 +27,35 @@ public class CameraControl : MonoBehaviour
                 Mathf.Cos((90f + (90f - theta)) * Mathf.Deg2Rad)
             ).normalized
         },
+        {
+            FollowBehavior.FromFront,
+            (theta) => new Vector3(
+                0f,
+                Mathf.Sin(theta * Mathf.Deg2Rad),
+                Mathf.Cos(theta * Mathf.Deg2Rad)
+            ).normalized
+        }
     };
 
     private FollowBehavior _followBehavior = FollowBehavior.FromBack;
     private Vector3 _followVelocity = Vector3.zero;
-    private Vector3 _rotationVelocity = Vector3.zero;
+
+    private void ResetOrientation()
+    {
+        cam.transform.position = CalculateCameraPosition();
+        cam.transform.LookAt(followTarget);
+    }
     
     // Start is called before the first frame update
     void Start()
     {
-
+        ResetOrientation();
     }
 
     private Vector3 CalculateCameraPosition()
     {
         Vector3 dir = _followDirections[_followBehavior](followAngle);
-        Debug.DrawRay(followTarget.position, dir * 10f, Color.red);
         return followTarget.position + dir * followDistance;
-    }
-
-    private Quaternion CalculateCameraRotation()
-    {
-        Vector3 targetToCamera = followTarget.position - cam.transform.position;
-        return Quaternion.LookRotation(targetToCamera);
     }
 
     // Update is called once per frame
@@ -57,8 +63,7 @@ public class CameraControl : MonoBehaviour
     {
         // Move Camera to desired position and then look at the player
         Vector3 targetCamPos = CalculateCameraPosition();
-        cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetCamPos, ref _followVelocity, followTime);
-        
+        cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetCamPos, ref _followVelocity, followTime * Time.fixedDeltaTime);
         cam.transform.LookAt(followTarget);
     }
 }
