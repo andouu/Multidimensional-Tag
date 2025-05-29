@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour
 {
-    public Transform cameraPosition;
-    public Transform castPointPosition;
-    public Transform scannerPosition;
+    public Transform cameraTransform;
+    public Transform castPointTransform;
+    public Transform scannerTransform;
 
     void Update()
     {
-        transform.position = cameraPosition.position;
-        castPointPosition.position = cameraPosition.position + cameraPosition.forward;
-        scannerPosition.position = cameraPosition.position + cameraPosition.forward;
+        Ray ray = cameraTransform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Vector3 dir = ray.direction;
+        transform.position = cameraTransform.position;
+        castPointTransform.position = cameraTransform.position;// + dir*2f;
+        scannerTransform.position = castPointTransform.position;
     }
 }
