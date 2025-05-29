@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
+    public Transform castPoint;
+    public Transform scanner;
+
     public float sensX;
     public float sensY;
 
@@ -16,6 +19,10 @@ public class CameraController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        RenderSettings.skybox = null;
+        Camera.main.clearFlags = CameraClearFlags.SolidColor;
+        Camera.main.backgroundColor = Color.black;
     }
 
     void Update()
@@ -30,5 +37,8 @@ public class CameraController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
+
+        castPoint.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        scanner.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 }

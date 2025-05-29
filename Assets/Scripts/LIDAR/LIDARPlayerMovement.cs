@@ -41,15 +41,15 @@ public class LIDARPlayerMovement : MonoBehaviour
     {
         // Basically just raycast to ground and see if we hit ground
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
-        print("checking grounded: " + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ",grounded=" + grounded);
+        //print("checking grounded: " + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ",grounded=" + grounded);
         if (grounded)
         {
-            print("grounded");
+            //print("grounded");
             rb.drag = groundDrag;
         }
         else
         {
-            print("not grounded");
+            //print("not grounded");
             rb.drag = 0f;
         }
 
@@ -63,14 +63,14 @@ public class LIDARPlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(jumpKey)) {
-            print("hit jump key, rady to" + readyToJump + "grdounded: " + grounded);
+            //print("hit jump key, rady to" + readyToJump + "grdounded: " + grounded);
         }
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
-            print("hit");
+            //print("hit");
             readyToJump = false;
             Jump();
-            print("jumping");
+            //print("jumping");
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
@@ -107,13 +107,13 @@ public class LIDARPlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        print("impulse now");
+        //print("impulse now");
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     private void ResetJump()
     {
-        print("resettings");
+        //print("resettings");
         readyToJump = true;
     }
 }
