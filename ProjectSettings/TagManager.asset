@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Jumpable
   - Fatal
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -13,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - whatIsGround
+  - InvisibleGeometry
+  - whatIsPlayer
+  - whatIsExit
   - 
   - 
   - 

@@ -4,5 +4,24 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 1d915124d46fa498eb9fd335c22e9f91
+  - enabled: 1
+    path: Assets/Scenes/Mesh.unity
+    guid: b5033017f8ee844858f222a0d34bccff
+  - enabled: 1
+    path: Assets/Scenes/LIDAR.unity
+    guid: 870c834c402634ebb8288ab2f77b8e54
+  - enabled: 1
+    path: Assets/Scenes/PlatformerTutorial.unity
+    guid: fb02adbf6671940cca9ee8136b50c856
+  - enabled: 1
+    path: Assets/Scenes/Platformer.unity
+    guid: 4b880930d406b4745a72bebb234c7af1
+  - enabled: 1
+    path: Assets/Scenes/Backrooms.unity
+    guid: cb15481306b7e4ef4bb9c9351e5b3443
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 310a3be0fc9fc4c7591e5167453bc08f, type: 2}

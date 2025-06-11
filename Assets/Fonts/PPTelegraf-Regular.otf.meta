@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 41174c30a759846d1a604dc8726a2f14
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PP Telegraf
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 05a8f92a3e7954178901e1785fab3436, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Fatal"))
         {
             // Reset the level
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Util.ResetLevel();
         }
     }
 

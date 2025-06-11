@@ -11,11 +11,11 @@ public class CameraControl : MonoBehaviour
     public float followTime = 0.1f;
     public float followAngle = 30f;
     
-    private enum FollowBehavior
+    public enum FollowBehavior
     {
         FromBack,
         FromFront,
-        ExactlyUnderneath
+        BirdsEye
     }
     
     private Dictionary<FollowBehavior, Func<float, Vector3>> _followDirections = new Dictionary<FollowBehavior, Func<float, Vector3>>(){
@@ -34,13 +34,17 @@ public class CameraControl : MonoBehaviour
                 Mathf.Sin(theta * Mathf.Deg2Rad),
                 Mathf.Cos(theta * Mathf.Deg2Rad)
             ).normalized
+        },
+        {
+            FollowBehavior.BirdsEye,
+            (theta) => new Vector3(0f, 90f * Mathf.Deg2Rad, -25f * Mathf.Deg2Rad).normalized
         }
     };
 
-    private FollowBehavior _followBehavior = FollowBehavior.FromBack;
+    public FollowBehavior followBehavior = FollowBehavior.FromBack;
     private Vector3 _followVelocity = Vector3.zero;
 
-    private void ResetOrientation()
+    public void ResetOrientation()
     {
         cam.transform.position = CalculateCameraPosition();
         cam.transform.LookAt(followTarget);
@@ -54,7 +58,7 @@ public class CameraControl : MonoBehaviour
 
     private Vector3 CalculateCameraPosition()
     {
-        Vector3 dir = _followDirections[_followBehavior](followAngle);
+        Vector3 dir = _followDirections[followBehavior](followAngle);
         return followTarget.position + dir * followDistance;
     }
 
@@ -64,6 +68,9 @@ public class CameraControl : MonoBehaviour
         // Move Camera to desired position and then look at the player
         Vector3 targetCamPos = CalculateCameraPosition();
         cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetCamPos, ref _followVelocity, followTime * Time.fixedDeltaTime);
-        cam.transform.LookAt(followTarget);
+        if (followBehavior != FollowBehavior.BirdsEye)
+        {
+            cam.transform.LookAt(followTarget);
+        }
     }
 }
