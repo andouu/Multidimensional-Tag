@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -20,6 +21,18 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public GameObject loseText, loseTextDescription;
+    public GameObject restartButton;
+    private void Start()
+    {
+        loseText.SetActive(false);
+        loseTextDescription.SetActive(false);
+        restartButton.SetActive(false);
+        Patroling();
+        alreadyAttacked = true;
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+    }
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -33,15 +46,19 @@ public class EnemyAI : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange)
         {
-            print("Patrolling");
+            //print("Patrolling");
             Patroling();
         }
         if (playerInSightRange && !playerInAttackRange)
         {
-            print("Chasing");
+            //print("Chasing");
             ChasePlayer();
         }
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if (playerInSightRange && playerInAttackRange && !alreadyAttacked)
+        {
+            //print("Attacking");
+            AttackPlayer();
+        }
     }
 
     private void Patroling()
@@ -81,11 +98,22 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
+        // Display tagged messages or wathever
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        loseText.SetActive(true);
+        restartButton.SetActive(true);
+        loseTextDescription.SetActive(true);
+        // Pause scene, set time scale to 0 to pause the game
+        print("Setting timescale 0 from here1");
+        Time.timeScale = 0f;
+
+        // Below is logic in case we want the player to be able to take many attacks (although this is tag so not reallythat useful?)
         if (!alreadyAttacked)
         {
             // TODO (wfang): Add attacking logic. Maybe just teleport back to the start?
-            Debug.Log("Attacking Player!");
-            print("ATTACKING PLAYER!");
+            //Debug.Log("Attacking Player!");
+            //print("ATTACKING PLAYER!");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }

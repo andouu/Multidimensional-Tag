@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
 
         RenderSettings.skybox = null;
-        Camera.main.clearFlags = CameraClearFlags.SolidColor;
-        Camera.main.backgroundColor = Color.black;
+        //Camera.main.clearFlags = CameraClearFlags.SolidColor;
+        //Camera.main.backgroundColor = Color.black;
     }
 
     void Update()
