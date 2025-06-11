@@ -28,11 +28,19 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); // TODO (wfang): if i have time, instead of checksphere possibly use a raycast to check if player is in line of sight too - so palyer can hide behind walls
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (!playerInSightRange && !playerInAttackRange)
+        {
+            print("Patrolling");
+            Patroling();
+        }
+        if (playerInSightRange && !playerInAttackRange)
+        {
+            print("Chasing");
+            ChasePlayer();
+        }
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
@@ -77,6 +85,7 @@ public class EnemyAI : MonoBehaviour
         {
             // TODO (wfang): Add attacking logic. Maybe just teleport back to the start?
             Debug.Log("Attacking Player!");
+            print("ATTACKING PLAYER!");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }

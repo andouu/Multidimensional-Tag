@@ -66,9 +66,6 @@ public class Scanner : MonoBehaviour
         // cache position for offset
         Vector3 vfxPos = _currentVFX.transform.position;
         
-        // cache transform position
-        Vector3 transformPos = transform.position;
-        
         // cache some more stuff for faster access
         int loopLength = _texture.width * _texture.height;
         int posListLen = pos.Length;
@@ -128,14 +125,14 @@ public class Scanner : MonoBehaviour
 
     private void Scan()
     {
-        print("enter scan with trig:" + _fire.triggered + " and pressed: " + _fire.IsPressed());
+        // print("enter scan with trig:" + _fire.triggered + " and pressed: " + _fire.IsPressed());
         // only call if button is pressed
         if (/*_fire.triggered*/_fire.IsPressed())
         {
-            print("button pressed");
+            // print("button pressed");
             for (int i = 0; i < _pointsPerScan; i++)
             {
-                print("point generated");
+                // print("point generated");
                 // generate random point
                 Vector3 randomPoint = Random.insideUnitSphere * _radius;
                 randomPoint += _castPoint.position;
