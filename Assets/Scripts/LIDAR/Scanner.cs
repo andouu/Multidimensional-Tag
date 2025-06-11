@@ -15,15 +15,10 @@ public class Scanner : MonoBehaviour
     private Texture2D _texture;
     private Color[] _positions;
     private bool _createNewVFX;
-    //private int _particleAmount;
     private LineRenderer _lineRenderer;
-
-    //private const string REJECT_LAYER_NAME = "PointReject";
     private const string PLAYER_TAG = "Player";
     private const string TEXTURE_NAME = "PositionsTexture";
     private const string RESOLUTION_PARAMETER_NAME = "Resolution";
-    //private const string PARTICLE_AMOUNT_PARAMETER_NAME = "ParticleAmount";
-    //private const string PARTICLES_PER_SCAN_PARAMETER_NAME = "ParticlesPerScan";
 
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private PlayerInput playerInput;
@@ -35,7 +30,6 @@ public class Scanner : MonoBehaviour
     [SerializeField] private float _minRadius = 1f;
     [SerializeField] private int _pointsPerScan = 100;
     [SerializeField] private float _range = 10f;
-
     [SerializeField] private int resolution = 16000;
 
     private void Start()
@@ -100,7 +94,7 @@ public class Scanner : MonoBehaviour
         
         // apply to VFX
         _currentVFX.SetTexture(TEXTURE_NAME, _texture);
-        _currentVFX.Reinit();
+        _currentVFX.Reinit(); //TODO (wfang): this wont work. This will cause the particles to be disaplyed, but ends up breaking TTL for individual particles (will reset lifespan of all particles when we only shoot one).
     }
 
     private void CreateNewVisualEffect() // this is fucking performance heavy help
